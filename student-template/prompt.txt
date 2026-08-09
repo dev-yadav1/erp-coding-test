@@ -1,4 +1,166 @@
 # TODO: Write your AI prompt below this line
 
+Create a production-ready React component named `SupplierPerformance` for a procurement dashboard.
+
+## Objective
+
+Build a responsive "Supplier Performance" widget that allows users to quickly compare supplier performance using:
+
+1. On-time delivery percentage.
+2. Average response time to purchase orders.
+3. A color-coded performance status: Green, Yellow, or Red.
+
+## Technology Requirements
+
+* Use React functional components and modern React patterns.
+* Use JavaScript or TypeScript; prefer TypeScript if type definitions are needed.
+* Use semantic HTML and accessible UI elements.
+* Keep the component self-contained and reusable.
+* Do not hard-code supplier records; all supplier data must come through props/API data.
+* Use clear, maintainable component and variable names.
+* Handle loading, empty, and error states gracefully.
+* Make the layout responsive for desktop, tablet, and mobile screens.
+
+## Component API
+
+Create the component with an API similar to:
+
+```tsx
+interface Supplier {
+  id: string;
+  name: string;
+  onTimeDeliveryPercentage: number;
+  averageResponseTimeHours: number;
+}
+
+interface SupplierPerformanceProps {
+  suppliers: Supplier[];
+  loading?: boolean;
+  error?: string | null;
+}
+```
+
+The component should be usable as:
+
+```tsx
+<SupplierPerformance
+  suppliers={[
+    {
+      id: "supplier-1",
+      name: "Acme Supplies",
+      onTimeDeliveryPercentage: 96,
+      averageResponseTimeHours: 3.5
+    },
+    {
+      id: "supplier-2",
+      name: "Global Parts",
+      onTimeDeliveryPercentage: 82,
+      averageResponseTimeHours: 10
+    }
+  ]}
+/>
+```
+
+Assume that the API returns an array of supplier objects matching this structure:
+
+```json
+{
+  "id": "string",
+  "name": "string",
+  "onTimeDeliveryPercentage": 0,
+  "averageResponseTimeHours": 0
+}
+```
+
+## UI Layout
+
+Create a dashboard card titled "Supplier Performance".
+
+Use a responsive table as the primary layout. Each supplier should appear as one row with these columns:
+
+* Supplier
+* On-Time Delivery
+* Avg. PO Response
+* Status
+
+For the "On-Time Delivery" column, display the percentage prominently and optionally include a small progress bar.
+
+For "Avg. PO Response", display the response time in hours, using a readable format such as `3.5 hrs`.
+
+For "Status", display a colored badge containing the appropriate status label and, where appropriate, a small status indicator.
+
+On smaller screens, make the table horizontally scrollable or transform rows into compact supplier cards without losing any information.
+
+## Color-Coding Logic
+
+Determine the supplier status using the following rules:
+
+### Green — Good
+
+Use Green when:
+
+* On-time delivery percentage is `>= 90%`, AND
+* Average PO response time is `<= 4 hours`.
+
+### Yellow — Needs Attention
+
+Use Yellow when the supplier does not qualify for Green but:
+
+* On-time delivery percentage is `>= 75%`, AND
+* Average PO response time is `<= 12 hours`.
+
+### Red — Poor
+
+Use Red when either:
+
+* On-time delivery percentage is `< 75%`, OR
+* Average PO response time is `> 12 hours`.
+
+The status calculation must be implemented in a reusable helper function rather than duplicated throughout the JSX.
+
+Use accessible color choices and do not rely on color alone to communicate status. Include the text label (`Good`, `Needs Attention`, or `Poor`) and, if useful, an icon or accessible status indicator.
+
+## Visual Design
+
+* Use a clean enterprise/procurement-dashboard style.
+* Give the widget a clear title and optional short description.
+* Use consistent spacing, typography, borders, and alignment.
+* Make performance percentages easy to scan.
+* Right-align numerical values where appropriate.
+* Keep status badges visually distinct.
+* Avoid excessive decoration.
+* Ensure sufficient color contrast for accessibility.
+* If a design system or component library is already available in the project, use its existing Card, Table, Badge, Progress, and loading components instead of introducing unnecessary dependencies.
+
+## States
+
+Implement:
+
+* Loading state: show a suitable skeleton or loading indicator.
+* Empty state: display a helpful message when there are no suppliers.
+* Error state: display the provided error message when `error` is present.
+* Normal state: render the supplier performance table.
+
+## Data and Behavior
+
+* Treat percentage values as numbers from 0–100.
+* Treat response time as a number representing hours.
+* Do not mutate the incoming `suppliers` prop.
+* Use stable keys based on `supplier.id`.
+* Gracefully handle missing or invalid values where practical.
+* Keep the component presentation-focused; API fetching should remain outside the component unless an API hook is explicitly provided by the surrounding application.
+
+## Expected Output
+
+Generate all necessary React/TypeScript code for the `SupplierPerformance` component, including:
+
+1. Type definitions.
+2. The reusable status-calculation helper.
+3. The main component.
+4. Any small supporting components needed for clarity.
+5. Accessible and responsive markup.
+6. Minimal styling appropriate for the project's existing styling approach.
+
+Briefly explain the component's data flow and status logic after the code. Do not invent backend endpoints or dependencies that were not specified.
 
 ---
